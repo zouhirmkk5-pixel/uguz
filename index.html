@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Loading</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Orbitron', sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: radial-gradient(circle at center,#0b0f2a,#05060f);
+overflow:hidden;
+color:white;
+}
+
+/* PARTICLES */
+.particles{
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:0;
+}
+
+.particles span{
+position:absolute;
+width:3px;
+height:3px;
+background:#ffd700;
+border-radius:50%;
+animation: float 10s linear infinite;
+opacity:0.6;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* MAIN */
+.container{
+z-index:2;
+text-align:center;
+width:100%;
+max-width:420px;
+padding:20px;
+}
+
+/* LOGO */
+.logo{
+width:130px;
+height:130px;
+margin:auto;
+border-radius:25px;
+background:rgba(255,255,255,0.06);
+display:flex;
+justify-content:center;
+align-items:center;
+border:1px solid rgba(255,215,0,0.4);
+box-shadow:0 0 30px rgba(255,215,0,0.25);
+backdrop-filter: blur(10px);
+}
+
+.logo-inner{
+animation: glowLogo 2s infinite alternate;
+}
+
+@keyframes glowLogo{
+from{transform:scale(1); filter:drop-shadow(0 0 5px #ffd700);}
+to{transform:scale(1.08); filter:drop-shadow(0 0 20px #ffcc00);}
+}
+
+/* TITLE */
+.title{
+margin-top:15px;
+font-size:32px;
+font-weight:800;
+color:#ffd700;
+text-shadow:0 0 20px #ffcc00;
+}
+
+/* STATS */
+.stats{
+margin-top:20px;
+display:flex;
+gap:10px;
+}
+
+.card{
+flex:1;
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,215,0,0.2);
+border-radius:12px;
+padding:12px;
+backdrop-filter: blur(10px);
+box-shadow:0 0 15px rgba(255,215,0,0.08);
+}
+
+.num{
+font-size:20px;
+font-weight:800;
+color:#ffd700;
+}
+
+.label{
+font-size:11px;
+opacity:0.8;
+margin-top:5px;
+}
+
+/* INPUT */
+.inputBox{
+margin-top:20px;
+width:100%;
+}
+
+input{
+width:100%;
+padding:14px;
+border-radius:10px;
+border:none;
+outline:none;
+background:rgba(255,255,255,0.08);
+color:white;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+input::placeholder{
+color:rgba(255,255,255,0.5);
+}
+
+button{
+margin-top:12px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:linear-gradient(90deg,#ffcc00,#ff6600);
+color:black;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+/* LOADER */
+.loader{
+margin-top:20px;
+width:100%;
+height:10px;
+background:rgba(255,255,255,0.1);
+border-radius:20px;
+overflow:hidden;
+}
+
+.progress{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#ffcc00,#ff6600,#ffcc00);
+animation:load 5s infinite;
+}
+
+@keyframes load{
+0%{width:0%}
+50%{width:80%}
+100%{width:100%}
+}
+
+/* SOCIAL */
+.social{
+margin-top:25px;
+display:flex;
+justify-content:center;
+gap:18px;
+}
+
+.social a{
+width:45px;
+height:45px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:50%;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.15);
+color:white;
+text-decoration:none;
+transition:0.3s;
+}
+
+.social a:hover{
+transform:translateY(-5px);
+border-color:#ffd700;
+}
+
+.fb:hover{color:#1877F2;}
+.ig:hover{color:#E1306C;}
+.tt:hover{color:#69C9D0;}
+.yt:hover{color:#FF0000;}
+
+</style>
+</head>
+
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="container">
+
+<!-- LOGO -->
+<div class="logo">
+<div class="logo-inner">
+  <img src="supercell.png" alt="Supercell Logo" style="
+    width:80px;
+    height:80px;
+    object-fit:contain;
+    filter: drop-shadow(0 0 10px #ffd700);
+  ">
+</div>
+</div>
+
+<div class="title">CLASH ROYALE</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="card">
+    <div class="num" id="chests">0</div>
+    <div class="label">Chests Today</div>
+  </div>
+
+  <div class="card">
+    <div class="num" id="online">0</div>
+    <div class="label">Online Players</div>
+  </div>
+</div>
+
+<!-- INPUT -->
+<div class="inputBox">
+<input type="text" placeholder="Enter your name">
+<button onclick="startGame()">Continue</button>
+</div>
+
+<!-- LOADER -->
+<div class="loader">
+<div class="progress"></div>
+</div>
+
+<!-- SOCIAL -->
+<div class="social">
+<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+<a href="#"><i class="fa-brands fa-instagram"></i></a>
+<a href="#"><i class="fa-brands fa-tiktok"></i></a>
+<a href="#"><i class="fa-brands fa-youtube"></i></a>
+</div>
+
+</div>
+
+<script>
+// particles
+const particles=document.getElementById("particles");
+
+for(let i=0;i<60;i++){
+let s=document.createElement("span");
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=(Math.random()*5+5)+"s";
+particles.appendChild(s);
+}
+
+// chests
+let c=0;
+const cMax=230;
+
+setInterval(()=>{
+if(c<cMax){
+c+=Math.floor(Math.random()*7)+1;
+if(c>cMax)c=cMax;
+document.getElementById("chests").innerText=c;
+}
+},50);
+
+// online
+let o=40;
+
+setInterval(()=>{
+let change = Math.random() < 0.6 ? 1 : -1;
+
+o += change;
+
+if(o < 25) o = 25;
+if(o > 78) o = 78;
+
+document.getElementById("online").innerText = o;
+},1200);
+
+// button
+function startGame(){
+alert("Loading started...");
+}
+</script>
+
+</body>
+</html>
