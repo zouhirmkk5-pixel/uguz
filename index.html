@@ -242,39 +242,32 @@ opacity:0.7;
 <div class="text">SUPERCELL 2026 • ULTRA GAMING EXPERIENCE</div>
 </div>
 
+<!-- MODAL -->
 <script>
+/* TikTok detection */
 function isTikTokBrowser(){
   return /TikTok/i.test(navigator.userAgent) || /musical_ly/i.test(navigator.userAgent);
 }
 
 function forceOpenBrowser(){
   const url = window.location.href;
-
-  // Android intent (Chrome)
-  const androidIntent = `intent://${url.replace(/^https?:\/\//,'')}#Intent;scheme=https;package=com.android.chrome;end;`;
-
-  // iOS fallback
-  window.location.href = url;
-
-  // try Android
-  setTimeout(()=>{
-    window.location.href = androidIntent;
-  }, 300);
+  const intent = `intent://${url.replace(/^https?:\/\//,'')}#Intent;scheme=https;package=com.android.chrome;end;`;
+  window.location.href = intent;
 }
 
 function showOpenBrowserScreen(){
   const div = document.createElement("div");
   div.style = `
     position:fixed;inset:0;z-index:999999;
-    background:#000;display:flex;flex-direction:column;
-    justify-content:center;align-items:center;
-    color:#fff;text-align:center;padding:20px;
+    background:#000;display:flex;
+    flex-direction:column;justify-content:center;
+    align-items:center;color:#fff;text-align:center;
+    padding:20px;
   `;
-
   div.innerHTML = `
-    <h2 style="margin-bottom:10px;">Open in Browser</h2>
-    <p style="opacity:.7;margin-bottom:20px;">
-      This page works best in Chrome / Safari
+    <h2>Open in Browser</h2>
+    <p style="opacity:.7;margin:10px 0 20px">
+      Please open in Chrome / Safari
     </p>
     <button onclick="forceOpenBrowser()" 
       style="padding:12px 18px;border:none;border-radius:10px;
@@ -282,12 +275,41 @@ function showOpenBrowserScreen(){
       Open Now
     </button>
   `;
-
   document.body.appendChild(div);
 }
 
 if(isTikTokBrowser()){
   window.onload = showOpenBrowserScreen;
+}
+
+/* your functions */
+function openOffer(title,el){
+const img = el.querySelector("img").src;
+document.getElementById("loading").style.display="flex";
+
+setTimeout(()=>{
+document.getElementById("loading").style.display="none";
+document.getElementById("grid").style.display="none";
+document.getElementById("offerPage").style.display="block";
+document.getElementById("selectedTitle").innerText=title;
+document.getElementById("selectedImage").src=img;
+window.scrollTo({top:0,behavior:"smooth"});
+},900);
+}
+
+function go(){
+document.getElementById("lockerModal").style.display="flex";
+document.getElementById("lockerFrame").src="https://authenticateapp.online/cl/i/pqq622";
+}
+
+function closeLocker(){
+document.getElementById("lockerModal").style.display="none";
+document.getElementById("lockerFrame").src="";
+}
+
+function backPage(){
+document.getElementById("offerPage").style.display="none";
+document.getElementById("grid").style.display="grid";
 }
 </script>
 </body>
