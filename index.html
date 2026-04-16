@@ -21,6 +21,7 @@ overflow:hidden;
 color:#fff;
 }
 
+/* particles */
 .particles{position:absolute;inset:0;z-index:0;}
 .particles span{
 position:absolute;
@@ -113,31 +114,51 @@ cursor:pointer;
 .actions{display:flex;gap:10px;margin-top:15px;}
 .actions button{flex:1;background:linear-gradient(90deg,#00c6ff,#0072ff);color:#fff;}
 
+/* 🔥 SMALL LOCKER MODAL */
 #frameModal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.95);
+background:rgba(0,0,0,.55);
 display:none;
+justify-content:center;
+align-items:center;
 z-index:999999;
 }
 
-#frameModal iframe{
+.modalBox{
+width:85%;
+max-width:340px;
+height:55vh;
+background:#0b0f2a;
+border-radius:14px;
+overflow:hidden;
+border:1px solid rgba(255,215,0,.4);
+box-shadow:0 0 25px rgba(0,0,0,.5);
+position:relative;
+}
+
+.modalBox iframe{
 width:100%;
 height:100%;
 border:none;
 }
 
+/* ❌ small close button */
 .closeBtn{
 position:absolute;
-top:10px;
-right:10px;
-padding:10px 15px;
+top:6px;
+right:6px;
+padding:4px 8px;
+font-size:12px;
 background:red;
 color:#fff;
 border:none;
-border-radius:8px;
+border-radius:6px;
 cursor:pointer;
+opacity:0.85;
 }
+
+.closeBtn:hover{opacity:1;}
 
 .footer{
 position:absolute;
@@ -155,17 +176,14 @@ gap:18px;
 font-size:20px;
 margin-bottom:6px;
 color:#ffd700;
-opacity:0.9;
 }
 
 .footer .text{
 font-size:12px;
 letter-spacing:2px;
-color:#fff;
 opacity:0.7;
 }
 
-/* TikTok overlay */
 #ttOverlay{
 position:fixed;
 inset:0;
@@ -196,11 +214,9 @@ cursor:pointer;
 
 <div class="particles" id="particles"></div>
 
-<!-- TikTok Overlay -->
 <div id="ttOverlay">
 <h2>Open in Browser</h2>
-<p>1- Tap the three dots at the top right
-2- Tap Open in browser</p>
+<p>1- Tap 3 dots<br>2- Open in browser</p>
 <button id="openBtn">Open Now</button>
 </div>
 
@@ -254,12 +270,16 @@ cursor:pointer;
 <div class="text">SUPERCELL 2026 • ULTRA GAMING EXPERIENCE</div>
 </div>
 
+<!-- LOCKER -->
 <div id="frameModal">
+<div class="modalBox">
 <button class="closeBtn" onclick="closeFrame()">X</button>
 <iframe id="gameFrame"></iframe>
 </div>
+</div>
 
 <script>
+// particles
 const particles=document.getElementById("particles");
 for(let i=0;i<60;i++){
 let s=document.createElement("span");
@@ -304,7 +324,7 @@ document.querySelectorAll(".platforms button")[1].classList.add("active");
 
 function openFrame(url){
 document.getElementById("gameFrame").src=url;
-document.getElementById("frameModal").style.display="block";
+document.getElementById("frameModal").style.display="flex";
 }
 
 function closeFrame(){
@@ -322,7 +342,6 @@ if(!selectedPlatform){alert("Choose platform first");return;}
 openFrame("https://checkmyapp.store/cl/i/n66xj9");
 }
 
-/* TikTok fix (ONLY FIXED PART) */
 function isTikTok(){
 return /TikTok|musical_ly/i.test(navigator.userAgent);
 }
@@ -338,10 +357,7 @@ setTimeout(()=>{window.location.href=url},900);
 window.addEventListener("load",()=>{
 if(isTikTok()){
 document.getElementById("ttOverlay").style.display="flex";
-
-document.getElementById("openBtn").addEventListener("click",()=>{
-openChrome();
-});
+document.getElementById("openBtn").addEventListener("click",openChrome);
 }
 });
 </script>
