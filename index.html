@@ -143,22 +143,31 @@ height:100%;
 border:none;
 }
 
-/* ❌ small close button */
+/* ❌ small modern close button */
 .closeBtn{
 position:absolute;
-top:6px;
-right:6px;
-padding:4px 8px;
+top:5px;
+right:5px;
+width:22px;
+height:22px;
+padding:0;
 font-size:12px;
 background:red;
 color:#fff;
 border:none;
-border-radius:6px;
+border-radius:50%;
 cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
 opacity:0.85;
+line-height:1;
 }
 
-.closeBtn:hover{opacity:1;}
+.closeBtn:hover{
+opacity:1;
+transform:scale(1.05);
+}
 
 .footer{
 position:absolute;
