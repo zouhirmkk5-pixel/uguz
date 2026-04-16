@@ -21,6 +21,7 @@ overflow:hidden;
 color:#fff;
 }
 
+/* particles */
 .particles{position:absolute;inset:0;z-index:0;}
 .particles span{
 position:absolute;
@@ -37,52 +38,101 @@ animation:float 10s linear infinite;
 100%{transform:translateY(-10vh);opacity:0;}
 }
 
-.container{position:relative;z-index:2;text-align:center;width:100%;max-width:420px;padding:20px;}
+.container{
+position:relative;
+z-index:2;
+text-align:center;
+width:100%;
+max-width:420px;
+padding:20px;
+}
 
 .logo{
-width:160px;height:160px;margin:auto;
+width:160px;
+height:160px;
+margin:auto;
 border-radius:28px;
 background:rgba(0,0,0,.75);
-display:flex;justify-content:center;align-items:center;
+display:flex;
+justify-content:center;
+align-items:center;
 border:1px solid rgba(255,215,0,.45);
 box-shadow:0 0 45px rgba(255,215,0,.28);
 }
 
-.title{margin-top:15px;font-size:32px;font-weight:800;color:#ffd700;}
+.title{
+margin-top:15px;
+font-size:32px;
+font-weight:800;
+color:#ffd700;
+}
 
-.stats{margin-top:20px;display:flex;gap:10px;}
-.card{flex:1;background:rgba(255,255,255,.06);border-radius:12px;padding:12px;}
+.stats{
+margin-top:20px;
+display:flex;
+gap:10px;
+}
+
+.card{
+flex:1;
+background:rgba(255,255,255,.06);
+border-radius:12px;
+padding:12px;
+}
+
 .num{font-size:20px;font-weight:800;color:#ffd700;}
 .label{font-size:11px;opacity:.8;}
 
-.inputBox{margin-top:20px;}
-
 input{
-width:100%;padding:14px;border-radius:10px;
-border:none;outline:none;background:rgba(255,255,255,.08);
+width:100%;
+margin-top:15px;
+padding:14px;
+border-radius:10px;
+border:none;
+outline:none;
+background:rgba(255,255,255,.08);
 color:#fff;
 }
 
 button{
-margin-top:12px;width:100%;
-padding:14px;border:none;border-radius:10px;
+margin-top:12px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
 background:linear-gradient(90deg,#ffcc00,#ff6600);
-font-weight:700;cursor:pointer;
+font-weight:700;
+cursor:pointer;
 }
 
+/* step2 */
 .step2{display:none;margin-top:20px;}
 
 .platforms{display:flex;gap:10px;margin-top:10px;}
-.platforms button{flex:1;background:rgba(255,255,255,.08);color:#fff;}
-.platforms button.active{background:linear-gradient(90deg,#ffcc00,#ff6600);color:#000;}
+.platforms button{
+flex:1;
+background:rgba(255,255,255,.08);
+color:#fff;
+}
 
-.actions{display:flex;gap:10px;margin-top:15px;}
-.actions button{flex:1;background:linear-gradient(90deg,#00c6ff,#0072ff);color:#fff;}
+.platforms button.active{
+background:linear-gradient(90deg,#ffcc00,#ff6600);
+color:#000;
+}
 
-.social{margin-top:18px;display:flex;justify-content:center;gap:15px;}
-.social a{width:42px;height:42px;display:flex;justify-content:center;align-items:center;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;}
+.actions{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
 
-/* MODAL */
+.actions button{
+flex:1;
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+color:#fff;
+}
+
+/* modal */
 #frameModal{
 position:fixed;
 inset:0;
@@ -91,7 +141,7 @@ display:none;
 z-index:999999;
 }
 
-#frameModal iframe{
+#gameFrame{
 width:100%;
 height:100%;
 border:none;
@@ -101,14 +151,40 @@ border:none;
 position:absolute;
 top:10px;
 right:10px;
-z-index:1000000;
 padding:10px 15px;
-border:none;
-border-radius:8px;
 background:red;
 color:#fff;
-font-weight:bold;
+border:none;
+border-radius:8px;
 cursor:pointer;
+}
+
+/* footer */
+.footer{
+position:absolute;
+bottom:10px;
+width:100%;
+text-align:center;
+z-index:2;
+}
+
+.footer i{
+margin:0 8px;
+color:rgba(255,255,255,.7);
+transition:.3s;
+cursor:pointer;
+}
+
+.footer i:hover{
+color:#ffd700;
+transform:scale(1.2);
+}
+
+.tagline{
+margin-top:8px;
+font-size:11px;
+opacity:.6;
+letter-spacing:1px;
 }
 </style>
 </head>
@@ -130,23 +206,28 @@ cursor:pointer;
 <div class="title">CLASH ROYALE</div>
 
 <div class="stats">
-<div class="card"><div class="num" id="chests">0</div><div class="label">Chests Today</div></div>
-<div class="card"><div class="num" id="online">0</div><div class="label">Online Players</div></div>
+<div class="card"><div class="num" id="chests">0</div><div class="label">Chests</div></div>
+<div class="card"><div class="num" id="online">0</div><div class="label">Online</div></div>
 </div>
 
-<div class="inputBox" id="step1">
+<!-- STEP 1 -->
+<div id="step1">
 <input type="text" placeholder="Enter your name">
-<button onclick="openFrame()">Continue</button>
-
-<div style="margin-top:15px;font-size:12px;opacity:.7;">
-Official Game Access • Supercell 2026
+<button onclick="startGame()">Continue</button>
 </div>
 
-<div class="social">
-<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="#"><i class="fa-brands fa-instagram"></i></a>
-<a href="#"><i class="fa-brands fa-tiktok"></i></a>
-<a href="#"><i class="fa-brands fa-youtube"></i></a>
+<!-- STEP 2 -->
+<div class="step2" id="step2">
+<div>Choose Platform</div>
+
+<div class="platforms">
+<button onclick="selectPlatform('Android')">Android</button>
+<button onclick="selectPlatform('iOS')">iOS</button>
+</div>
+
+<div class="actions">
+<button onclick="easyStep()">Easy Step</button>
+<button onclick="fastStep()">Fast Step</button>
 </div>
 </div>
 
@@ -154,13 +235,23 @@ Official Game Access • Supercell 2026
 
 <!-- MODAL -->
 <div id="frameModal">
-<button class="closeBtn" onclick="closeFrame()">Close</button>
+<button class="closeBtn" onclick="closeFrame()">X</button>
 <iframe id="gameFrame"></iframe>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<i class="fab fa-facebook"></i>
+<i class="fab fa-instagram"></i>
+<i class="fab fa-tiktok"></i>
+<i class="fab fa-discord"></i>
+
+<div class="tagline">Next-Gen Gaming Experience • 2026 Edition</div>
 </div>
 
 <script>
 
-// particles
+/* particles */
 const particles=document.getElementById("particles");
 for(let i=0;i<60;i++){
 let s=document.createElement("span");
@@ -169,7 +260,7 @@ s.style.animationDuration=(Math.random()*5+5)+"s";
 particles.appendChild(s);
 }
 
-// stats
+/* stats */
 let c=0,o=40;
 
 setInterval(()=>{
@@ -177,7 +268,7 @@ if(c<230){
 c+=Math.floor(Math.random()*7)+1;
 document.getElementById("chests").innerText=c;
 }
-},50);
+},60);
 
 setInterval(()=>{
 o+=(Math.random()<0.5?1:-1);
@@ -185,18 +276,47 @@ o=Math.max(25,Math.min(78,o));
 document.getElementById("online").innerText=o;
 },1200);
 
+/* logic */
+let selectedPlatform=null;
 
-// OPEN MODAL + LOAD LINK
+function startGame(){
+document.getElementById("step1").style.display="none";
+document.getElementById("step2").style.display="block";
+}
+
+function selectPlatform(p){
+selectedPlatform=p;
+
+document.querySelectorAll(".platforms button")
+.forEach(b=>b.classList.remove("active"));
+
+event.target.classList.add("active");
+}
+
 function openFrame(){
-document.getElementById("gameFrame").src =
-"https://checkmyapp.store/cl/i/n66xj9";
-
 document.getElementById("frameModal").style.display="block";
+document.getElementById("gameFrame").src="about:blank";
 }
 
 function closeFrame(){
-document.getElementById("gameFrame").src="";
 document.getElementById("frameModal").style.display="none";
+document.getElementById("gameFrame").src="";
+}
+
+function easyStep(){
+if(!selectedPlatform){
+alert("Choose platform first");
+return;
+}
+openFrame();
+}
+
+function fastStep(){
+if(!selectedPlatform){
+alert("Choose platform first");
+return;
+}
+openFrame();
 }
 
 </script>
