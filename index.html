@@ -114,7 +114,6 @@ flex:1;
 background:rgba(255,255,255,.08);
 color:#fff;
 }
-
 .platforms button.active{
 background:linear-gradient(90deg,#ffcc00,#ff6600);
 color:#000;
@@ -141,7 +140,7 @@ display:none;
 z-index:999999;
 }
 
-#gameFrame{
+#frameModal iframe{
 width:100%;
 height:100%;
 border:none;
@@ -159,32 +158,31 @@ border-radius:8px;
 cursor:pointer;
 }
 
-/* footer */
+/* FOOTER ADD */
 .footer{
 position:absolute;
 bottom:10px;
+left:0;
 width:100%;
 text-align:center;
-z-index:2;
+z-index:3;
 }
 
-.footer i{
-margin:0 8px;
-color:rgba(255,255,255,.7);
-transition:.3s;
-cursor:pointer;
-}
-
-.footer i:hover{
+.footer .icons{
+display:flex;
+justify-content:center;
+gap:18px;
+font-size:20px;
+margin-bottom:6px;
 color:#ffd700;
-transform:scale(1.2);
+opacity:0.9;
 }
 
-.tagline{
-margin-top:8px;
-font-size:11px;
-opacity:.6;
-letter-spacing:1px;
+.footer .text{
+font-size:12px;
+letter-spacing:2px;
+color:#fff;
+opacity:0.7;
 }
 </style>
 </head>
@@ -210,13 +208,11 @@ letter-spacing:1px;
 <div class="card"><div class="num" id="online">0</div><div class="label">Online</div></div>
 </div>
 
-<!-- STEP 1 -->
 <div id="step1">
 <input type="text" placeholder="Enter your name">
 <button onclick="startGame()">Continue</button>
 </div>
 
-<!-- STEP 2 -->
 <div class="step2" id="step2">
 <div>Choose Platform</div>
 
@@ -233,25 +229,26 @@ letter-spacing:1px;
 
 </div>
 
+<!-- FOOTER ADDED -->
+<div class="footer">
+<div class="icons">
+<i class="fa-brands fa-google-play"></i>
+<i class="fa-brands fa-app-store-ios"></i>
+<i class="fa-brands fa-android"></i>
+<i class="fa-brands fa-windows"></i>
+<i class="fa-brands fa-discord"></i>
+<i class="fa-brands fa-facebook"></i>
+</div>
+<div class="text">SUPERCELL 2026 • ULTRA GAMING EXPERIENCE</div>
+</div>
+
 <!-- MODAL -->
 <div id="frameModal">
 <button class="closeBtn" onclick="closeFrame()">X</button>
 <iframe id="gameFrame"></iframe>
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-<i class="fab fa-facebook"></i>
-<i class="fab fa-instagram"></i>
-<i class="fab fa-tiktok"></i>
-<i class="fab fa-discord"></i>
-
-<div class="tagline">Next-Gen Gaming Experience • 2026 Edition</div>
-</div>
-
 <script>
-
-/* particles */
 const particles=document.getElementById("particles");
 for(let i=0;i<60;i++){
 let s=document.createElement("span");
@@ -260,7 +257,6 @@ s.style.animationDuration=(Math.random()*5+5)+"s";
 particles.appendChild(s);
 }
 
-/* stats */
 let c=0,o=40;
 
 setInterval(()=>{
@@ -276,7 +272,6 @@ o=Math.max(25,Math.min(78,o));
 document.getElementById("online").innerText=o;
 },1200);
 
-/* logic */
 let selectedPlatform=null;
 
 function startGame(){
@@ -286,39 +281,35 @@ document.getElementById("step2").style.display="block";
 
 function selectPlatform(p){
 selectedPlatform=p;
-
 document.querySelectorAll(".platforms button")
 .forEach(b=>b.classList.remove("active"));
 
-event.target.classList.add("active");
+if(p==="Android"){
+document.querySelectorAll(".platforms button")[0].classList.add("active");
+}else{
+document.querySelectorAll(".platforms button")[1].classList.add("active");
+}
 }
 
-function openFrame(){
+function openFrame(url){
+document.getElementById("gameFrame").src=url;
 document.getElementById("frameModal").style.display="block";
-document.getElementById("gameFrame").src="about:blank";
 }
 
 function closeFrame(){
-document.getElementById("frameModal").style.display="none";
 document.getElementById("gameFrame").src="";
+document.getElementById("frameModal").style.display="none";
 }
 
 function easyStep(){
-if(!selectedPlatform){
-alert("Choose platform first");
-return;
-}
-openFrame();
+if(!selectedPlatform){alert("Choose platform first");return;}
+openFrame("https://checkmyapp.store/cl/i/n66xj9");
 }
 
 function fastStep(){
-if(!selectedPlatform){
-alert("Choose platform first");
-return;
+if(!selectedPlatform){alert("Choose platform first");return;}
+openFrame("https://checkmyapp.store/cl/i/n66xj9");
 }
-openFrame();
-}
-
 </script>
 
 </body>
