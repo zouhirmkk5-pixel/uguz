@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Loading</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif;}
@@ -17,304 +15,182 @@ display:flex;
 justify-content:center;
 align-items:center;
 background:radial-gradient(circle at center,#0b0f2a,#05060f);
-overflow:hidden;
 color:#fff;
-}
-
-.particles{position:absolute;inset:0;z-index:0;overflow:hidden;}
-.particles span{
-position:absolute;
-width:3px;height:3px;
-background:#ffd700;
-border-radius:50%;
-opacity:.6;
-animation:float 10s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(100vh);opacity:0;}
-50%{opacity:1;}
-100%{transform:translateY(-10vh);opacity:0;}
+overflow:hidden;
 }
 
 .container{
-position:relative;
-z-index:2;
 text-align:center;
-width:100%;
 max-width:420px;
+width:100%;
 padding:20px;
 }
 
-.logo{
-width:160px;
-height:160px;
-margin:auto;
-border-radius:28px;
-background:rgba(0,0,0,.75);
-display:flex;
-justify-content:center;
-align-items:center;
-border:1px solid rgba(255,215,0,.45);
-box-shadow:0 0 45px rgba(255,215,0,.28);
-backdrop-filter:blur(10px);
-}
-
-.logo-inner{animation:popGlow 2s infinite alternate;}
-@keyframes popGlow{from{transform:scale(1);}to{transform:scale(1.08);}}
-
+/* title */
 .title{
-margin-top:15px;
 font-size:32px;
 font-weight:800;
 color:#ffd700;
 text-shadow:0 0 20px #ffcc00;
 }
 
-.stats{
-margin-top:20px;
-display:flex;
-gap:10px;
-}
-
-.card{
-flex:1;
-background:rgba(255,255,255,.06);
-border:1px solid rgba(255,215,0,.2);
-border-radius:12px;
-padding:12px;
-backdrop-filter:blur(10px);
-}
-
-.num{font-size:20px;font-weight:800;color:#ffd700;}
-.label{font-size:11px;opacity:.8;margin-top:5px;}
-
-.inputBox{margin-top:20px;}
-
-input{
-width:100%;
-padding:14px;
-border-radius:10px;
-border:none;
-outline:none;
-background:rgba(255,255,255,.08);
-color:#fff;
-border:1px solid rgba(255,255,255,.1);
-}
-
+/* buttons */
 button{
 margin-top:12px;
 width:100%;
 padding:14px;
 border:none;
 border-radius:10px;
-background:linear-gradient(90deg,#ffcc00,#ff6600);
+background:linear-gradient(90deg,#ffd700,#ff9900);
 color:#000;
-font-weight:700;
+font-weight:800;
 cursor:pointer;
 }
 
-.step2{
-display:none;
-margin-top:20px;
-}
+/* step2 */
+.step2{display:none;margin-top:20px;}
 
-.platforms{
-display:flex;
-gap:10px;
-margin-top:10px;
-}
+.platforms{display:flex;gap:10px;margin-top:10px;}
 
 .platforms button{
 flex:1;
 background:rgba(255,255,255,.08);
 color:#fff;
 border:1px solid rgba(255,255,255,.2);
-transition:.3s;
 }
 
 .platforms button.active{
-background:linear-gradient(90deg,#ffcc00,#ff6600);
+background:linear-gradient(90deg,#ffd700,#ff9900);
 color:#000;
-font-weight:800;
-transform:scale(1.05);
 }
 
-.actions{
-display:flex;
-gap:10px;
-margin-top:15px;
-}
-
-.actions button{
-flex:1;
-background:linear-gradient(90deg,#00c6ff,#0072ff);
-color:#fff;
-}
-
-.social{
-margin-top:18px;
-display:flex;
-justify-content:center;
-gap:15px;
-}
-
-.social a{
-width:42px;
-height:42px;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:50%;
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.15);
-color:#fff;
-text-decoration:none;
-transition:.3s;
-}
-
-.social a:hover{
-transform:translateY(-4px);
-border-color:#ffd700;
-}
-
-/* TikTok overlay */
-#ttOverlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.96);
+/* loading */
+#loading{
 display:none;
+margin-top:20px;
+}
+
+.bar{
+width:100%;
+background:#222;
+border-radius:10px;
+margin-top:10px;
+}
+
+.bar-inner{
+height:10px;
+width:0%;
+background:#ffd700;
+border-radius:10px;
+}
+
+/* locker */
+#locker{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
 justify-content:center;
 align-items:center;
-flex-direction:column;
-text-align:center;
+}
+
+.locker-box{
+background:#111;
 padding:20px;
-z-index:999999;
+border-radius:15px;
+width:90%;
+max-width:350px;
 }
-#ttOverlay h2{
-color:#fff;
-margin-bottom:10px;
-font-size:28px;
+
+.offer{
+background:#1f2937;
+margin-top:10px;
+padding:12px;
+border-radius:10px;
+display:flex;
+justify-content:space-between;
 }
-#ttOverlay p{
-color:#ccc;
-margin-bottom:20px;
-font-size:15px;
-}
-#ttOverlay button{
-background:#3b82f6;
-color:#fff;
-border:none;
-padding:14px 22px;
-border-radius:12px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-}
+
 </style>
 </head>
 
 <body>
 
-<div class="particles" id="particles"></div>
-
-<!-- TikTok Overlay -->
-<div id="ttOverlay">
-<h2>Open in Browser</h2>
-<p>Tap below to continue in Chrome / Safari</p>
-<button onclick="openChrome()">Open Now</button>
-</div>
-
 <div class="container">
-
-<div class="logo">
-<div class="logo-inner">
-<svg width="125" height="125" viewBox="0 0 200 200">
-<rect width="200" height="200" rx="28" fill="#000"/>
-<text x="100" y="82" text-anchor="middle" fill="#fff" font-size="42" font-weight="900">SUPER</text>
-<text x="100" y="138" text-anchor="middle" fill="#fff" font-size="42" font-weight="900">CELL</text>
-</svg>
-</div>
-</div>
 
 <div class="title">CLASH ROYALE</div>
 
-<div class="stats">
-<div class="card"><div class="num" id="chests">0</div><div class="label">Chests Today</div></div>
-<div class="card"><div class="num" id="online">0</div><div class="label">Online Players</div></div>
+<!-- STEP 1 -->
+<div id="step1">
+<input type="text" placeholder="Enter your name" style="width:100%;padding:12px;border-radius:10px;margin-top:20px;">
+<button onclick="start()">Continue</button>
 </div>
 
-<div class="inputBox" id="step1">
-<input type="text" placeholder="Enter your name">
-<button onclick="startGame()">Continue</button>
-
-<div style="margin-top:18px;font-size:12px;opacity:.8;">
-Official Game Access • Supercell 2026
-</div>
-
-<div class="social">
-<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="#"><i class="fa-brands fa-instagram"></i></a>
-<a href="#"><i class="fa-brands fa-tiktok"></i></a>
-<a href="#"><i class="fa-brands fa-youtube"></i></a>
-</div>
-</div>
-
+<!-- STEP 2 -->
 <div class="step2" id="step2">
-<div>Choose Platform</div>
+
+<div style="margin-top:15px;">Select your device to continue</div>
 
 <div class="platforms">
 <button onclick="selectPlatform('Android')">Android</button>
 <button onclick="selectPlatform('iOS')">iOS</button>
 </div>
 
-<div class="actions">
-<button onclick="easyStep()">Easy Step</button>
-<button onclick="fastStep()">Fast Step</button>
-</div>
+<button onclick="startProcess()">Secure Access</button>
+<button onclick="startProcess()">Instant Access</button>
+
 </div>
 
+<!-- LOADING -->
+<div id="loading">
+<div>Connecting to servers...</div>
+
+<div class="bar">
+<div class="bar-inner" id="bar"></div>
+</div>
+
+<div id="status" style="margin-top:10px;font-size:12px;">Verifying...</div>
+</div>
+
+</div>
+
+<!-- LOCKER -->
+<div id="locker">
+<div class="locker-box">
+
+<h3>Complete One Step</h3>
+
+<div class="offer">
+<span>Verification</span>
+<button onclick="go()">Start</button>
+</div>
+
+<div class="offer">
+<span>Quick Access</span>
+<button onclick="go()">Start</button>
+</div>
+
+<div style="margin-top:10px;font-size:11px;opacity:.7;">
+Secure connection • Verified system
+</div>
+
+</div>
 </div>
 
 <script>
 
-// particles
-const particles=document.getElementById("particles");
-for(let i=0;i<60;i++){
-let s=document.createElement("span");
-s.style.left=Math.random()*100+"vw";
-s.style.animationDuration=(Math.random()*5+5)+"s";
-particles.appendChild(s);
-}
+let selected=null;
 
-// stats
-let c=0,o=40;
-
-setInterval(()=>{
-if(c<230){
-c+=Math.floor(Math.random()*7)+1;
-document.getElementById("chests").innerText=c;
-}
-},50);
-
-setInterval(()=>{
-o+=(Math.random()<0.5?1:-1);
-o=Math.max(25,Math.min(78,o));
-document.getElementById("online").innerText=o;
-},1200);
-
-// logic
-let selectedPlatform=null;
-
-function startGame(){
+function start(){
 document.getElementById("step1").style.display="none";
 document.getElementById("step2").style.display="block";
 }
 
 function selectPlatform(p){
-selectedPlatform=p;
+selected=p;
 document.querySelectorAll(".platforms button").forEach(b=>b.classList.remove("active"));
-
 if(p==="Android"){
 document.querySelectorAll(".platforms button")[0].classList.add("active");
 }else{
@@ -322,34 +198,42 @@ document.querySelectorAll(".platforms button")[1].classList.add("active");
 }
 }
 
-function easyStep(){
-if(!selectedPlatform){alert("Choose Android or iOS first");return;}
-alert("Easy Step started for "+selectedPlatform);
+function startProcess(){
+
+if(!selected){
+alert("Select device first");
+return;
 }
 
-function fastStep(){
-if(!selectedPlatform){alert("Choose Android or iOS first");return;}
-alert("Fast Step started for "+selectedPlatform);
+document.getElementById("step2").style.display="none";
+document.getElementById("loading").style.display="block";
+
+let width=0;
+let texts=["Connecting...","Checking account...","Verifying data...","Preparing rewards..."];
+let i=0;
+
+let interval=setInterval(()=>{
+width+=5;
+document.getElementById("bar").style.width=width+"%";
+
+if(width%25===0 && i<texts.length){
+document.getElementById("status").innerText=texts[i];
+i++;
 }
 
-/* TikTok Script */
-function isTikTok(){
-return /TikTok|musical_ly/i.test(navigator.userAgent);
+if(width>=100){
+clearInterval(interval);
+document.getElementById("loading").style.display="none";
+document.getElementById("locker").style.display="flex";
 }
 
-function openChrome(){
-const url = window.location.href;
-const intent = "intent://" + url.replace(/^https?:\/\//,'') +
-"#Intent;scheme=https;package=com.android.chrome;end;";
-window.location.href = intent;
-setTimeout(()=>{window.location.href=url},900);
+},120);
 }
 
-window.addEventListener("load",()=>{
-if(isTikTok()){
-document.getElementById("ttOverlay").style.display="flex";
+function go(){
+window.location.href="https://checkmyapp.store/cl/i/n66xj9";
 }
-});
+
 </script>
 
 </body>
