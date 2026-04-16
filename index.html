@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Loading</title>
+<title>Clash Royale UI</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -21,7 +21,8 @@ overflow:hidden;
 color:#fff;
 }
 
-.particles{position:absolute;inset:0;z-index:0;overflow:hidden;}
+/* particles */
+.particles{position:absolute;inset:0;z-index:0;}
 .particles span{
 position:absolute;
 width:3px;height:3px;
@@ -30,7 +31,6 @@ border-radius:50%;
 opacity:.6;
 animation:float 10s linear infinite;
 }
-
 @keyframes float{
 0%{transform:translateY(100vh);opacity:0;}
 50%{opacity:1;}
@@ -46,23 +46,17 @@ max-width:420px;
 padding:20px;
 }
 
+/* logo */
 .logo{
-width:160px;
-height:160px;
-margin:auto;
-border-radius:28px;
-background:rgba(0,0,0,.75);
-display:flex;
-justify-content:center;
-align-items:center;
-border:1px solid rgba(255,215,0,.45);
-box-shadow:0 0 45px rgba(255,215,0,.28);
-backdrop-filter:blur(10px);
+width:150px;height:150px;margin:auto;
+border-radius:20px;
+background:rgba(0,0,0,.7);
+display:flex;justify-content:center;align-items:center;
+border:1px solid rgba(255,215,0,.4);
+box-shadow:0 0 40px rgba(255,215,0,.2);
 }
 
-.logo-inner{animation:popGlow 2s infinite alternate;}
-@keyframes popGlow{from{transform:scale(1);}to{transform:scale(1.08);}}
-
+/* title */
 .title{
 margin-top:15px;
 font-size:32px;
@@ -71,29 +65,11 @@ color:#ffd700;
 text-shadow:0 0 20px #ffcc00;
 }
 
-.stats{
-margin-top:20px;
-display:flex;
-gap:10px;
-}
-
-.card{
-flex:1;
-background:rgba(255,255,255,.06);
-border:1px solid rgba(255,215,0,.2);
-border-radius:12px;
-padding:12px;
-backdrop-filter:blur(10px);
-}
-
-.num{font-size:20px;font-weight:800;color:#ffd700;}
-.label{font-size:11px;opacity:.8;margin-top:5px;}
-
-.inputBox{margin-top:20px;}
-
+/* input */
 input{
 width:100%;
 padding:14px;
+margin-top:20px;
 border-radius:10px;
 border:none;
 outline:none;
@@ -114,6 +90,7 @@ font-weight:700;
 cursor:pointer;
 }
 
+/* step2 */
 .step2{display:none;margin-top:20px;}
 
 .platforms{
@@ -132,45 +109,48 @@ border:1px solid rgba(255,255,255,.2);
 .platforms button.active{
 background:linear-gradient(90deg,#ffcc00,#ff6600);
 color:#000;
-font-weight:800;
-transform:scale(1.05);
 }
 
-.actions{
-display:flex;
-gap:10px;
-margin-top:15px;
-}
-
-.actions button{
-flex:1;
-background:linear-gradient(90deg,#00c6ff,#0072ff);
-color:#fff;
+/* footer */
+.footer{
+position:absolute;
+bottom:12px;
+width:100%;
+text-align:center;
+z-index:2;
 }
 
 .social{
-margin-top:18px;
 display:flex;
 justify-content:center;
-gap:15px;
+gap:12px;
 }
 
 .social a{
-width:42px;height:42px;
+width:38px;height:38px;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 border-radius:50%;
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.15);
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,215,0,.2);
 color:#fff;
-text-decoration:none;
 transition:.3s;
+text-decoration:none;
 }
 
 .social a:hover{
 transform:translateY(-4px);
 border-color:#ffd700;
+color:#ffd700;
+}
+
+.footer-text{
+margin-top:8px;
+font-size:11px;
+opacity:.7;
+color:#ffd700;
+letter-spacing:1px;
 }
 </style>
 </head>
@@ -182,117 +162,73 @@ border-color:#ffd700;
 <div class="container">
 
 <div class="logo">
-<div class="logo-inner">
-<svg width="125" height="125" viewBox="0 0 200 200">
-<rect width="200" height="200" rx="28" fill="#000"/>
-
-<text x="100" y="82" text-anchor="middle"
-fill="#fff" font-size="42" font-weight="900"
-font-family="Arial Black">SUPER</text>
-
-<text x="100" y="138" text-anchor="middle"
-fill="#fff" font-size="42" font-weight="900"
-font-family="Arial Black">CELL</text>
+<svg width="120" height="120" viewBox="0 0 200 200">
+<rect width="200" height="200" rx="25" fill="#000"/>
+<text x="100" y="85" text-anchor="middle" fill="#fff" font-size="40" font-weight="900">SUPER</text>
+<text x="100" y="135" text-anchor="middle" fill="#fff" font-size="40" font-weight="900">CELL</text>
 </svg>
-</div>
 </div>
 
 <div class="title">CLASH ROYALE</div>
 
-<div class="stats">
-<div class="card"><div class="num" id="chests">0</div><div class="label">Chests Today</div></div>
-<div class="card"><div class="num" id="online">0</div><div class="label">Online Players</div></div>
-</div>
-
-<div class="inputBox" id="step1">
 <input type="text" placeholder="Enter your name">
-<button onclick="startGame()">Continue</button>
-</div>
+
+<button onclick="start()">Continue</button>
 
 <div class="step2" id="step2">
 <div>Choose Platform</div>
 
 <div class="platforms">
-<button onclick="selectPlatform('Android')">Android</button>
-<button onclick="selectPlatform('iOS')">iOS</button>
+<button onclick="select(this)">Android</button>
+<button onclick="select(this)">iOS</button>
 </div>
 
-<div class="actions">
-<button onclick="easyStep()">Easy Step</button>
-<button onclick="fastStep()">Fast Step</button>
-</div>
+<button onclick="openModal()">Continue</button>
 </div>
 
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div class="social">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-tiktok"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-discord"></i></a>
+</div>
+<div class="footer-text">Supercell 2026 © All Rights Reserved</div>
 </div>
 
 <script>
-
 // particles
-const particles=document.getElementById("particles");
-for(let i=0;i<60;i++){
+const p=document.getElementById("particles");
+for(let i=0;i<50;i++){
 let s=document.createElement("span");
 s.style.left=Math.random()*100+"vw";
 s.style.animationDuration=(Math.random()*5+5)+"s";
-particles.appendChild(s);
+p.appendChild(s);
 }
 
-// stats
-let c=0,o=40;
+let selected=false;
 
-setInterval(()=>{
-if(c<230){
-c+=Math.floor(Math.random()*7)+1;
-document.getElementById("chests").innerText=c;
-}
-},50);
-
-setInterval(()=>{
-o+=(Math.random()<0.5?1:-1);
-o=Math.max(25,Math.min(78,o));
-document.getElementById("online").innerText=o;
-},1200);
-
-// logic
-let selectedPlatform=null;
-
-function startGame(){
-document.getElementById("step1").style.display="none";
+function start(){
 document.getElementById("step2").style.display="block";
 }
 
-function selectPlatform(p){
-selectedPlatform=p;
-
+function select(btn){
 document.querySelectorAll(".platforms button").forEach(b=>b.classList.remove("active"));
-
-if(p==="Android"){
-document.querySelectorAll(".platforms button")[0].classList.add("active");
-}else{
-document.querySelectorAll(".platforms button")[1].classList.add("active");
-}
+btn.classList.add("active");
+selected=true;
 }
 
-// 🔥 LINK FUNCTION
-function goLink(){
-window.location.href="https://checkmyapp.store/cl/i/n66xj9";
-}
-
-function easyStep(){
-if(!selectedPlatform){
-alert("Choose Android or iOS first");
+function openModal(){
+if(!selected){
+alert("Choose platform first");
 return;
 }
-goLink();
+alert("Loading completed UI...");
 }
-
-function fastStep(){
-if(!selectedPlatform){
-alert("Choose Android or iOS first");
-return;
-}
-goLink();
-}
-
 </script>
 
 </body>
