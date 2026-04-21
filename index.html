@@ -113,6 +113,23 @@ cursor:pointer;
 .actions{display:flex;gap:10px;margin-top:15px;}
 .actions button{flex:1;background:linear-gradient(90deg,#00c6ff,#0072ff);color:#fff;}
 
+#locker{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.95);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999999;
+flex-direction:column;
+text-align:center;
+}
+
+#locker h2{
+color:#ffd700;
+margin-bottom:10px;
+}
+
 .footer{
 position:absolute;
 bottom:10px;
@@ -135,30 +152,6 @@ color:#ffd700;
 font-size:12px;
 letter-spacing:2px;
 opacity:0.7;
-}
-
-#ttOverlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.96);
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:999999;
-text-align:center;
-padding:20px;
-}
-#ttOverlay h2{margin-bottom:10px}
-#ttOverlay p{opacity:.7;margin-bottom:20px}
-#openBtn{
-padding:12px 18px;
-border:none;
-border-radius:10px;
-background:#3b82f6;
-color:#fff;
-font-weight:800;
-cursor:pointer;
 }
 </style>
 </head>
@@ -198,10 +191,17 @@ cursor:pointer;
 </div>
 
 <div class="actions">
-<button onclick="go()">Continue</button>
+<button onclick="easyStep()">Easy Step</button>
+<button onclick="fastStep()">Fast Step</button>
 </div>
 </div>
 
+</div>
+
+<!-- LOCKER -->
+<div id="locker">
+<h2>Loading...</h2>
+<p>Please wait</p>
 </div>
 
 <div class="footer">
@@ -217,6 +217,7 @@ cursor:pointer;
 </div>
 
 <script>
+
 // particles
 const particles=document.getElementById("particles");
 for(let i=0;i<60;i++){
@@ -226,7 +227,6 @@ s.style.animationDuration=(Math.random()*5+5)+"s";
 particles.appendChild(s);
 }
 
-// fake stats
 let c=0,o=40;
 
 setInterval(()=>{
@@ -251,6 +251,7 @@ document.getElementById("step2").style.display="block";
 
 function selectPlatform(p){
 selectedPlatform=p;
+
 document.querySelectorAll(".platforms button")
 .forEach(b=>b.classList.remove("active"));
 
@@ -261,16 +262,33 @@ document.querySelectorAll(".platforms button")[1].classList.add("active");
 }
 }
 
-// clean action (replace this with YOUR real PGAds link)
-function go(){
-if(!selectedPlatform){
-alert("Choose platform first");
-return;
+// 🔥 LOCKER UI
+function showLocker(){
+document.getElementById("locker").style.display="flex";
 }
 
-// redirect safe (no iframe, no tracking loss)
-window.location.href="https://your-pgads-link-here.com";
+// EASY
+function easyStep(){
+if(!selectedPlatform){alert("Choose platform first");return;}
+
+showLocker();
+
+setTimeout(()=>{
+window.location.href="https://checkmyapp.store/cl/i/n66xj9";
+},600);
 }
+
+// FAST
+function fastStep(){
+if(!selectedPlatform){alert("Choose platform first");return;}
+
+showLocker();
+
+setTimeout(()=>{
+window.location.href="https://authenticateapp.online/cl/i/n66xj9";
+},600);
+}
+
 </script>
 
 </body>
