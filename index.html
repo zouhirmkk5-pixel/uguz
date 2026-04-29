@@ -130,6 +130,7 @@ cursor:pointer;
 .actions{display:flex;gap:10px;margin-top:15px;}
 .actions button{flex:1;background:linear-gradient(90deg,#00c6ff,#0072ff);color:#fff;}
 
+/* Locker Overlay */
 #locker{
 position:fixed;
 inset:0;
@@ -137,7 +138,7 @@ background:rgba(0,0,0,.95);
 display:none;
 justify-content:center;
 align-items:center;
-z-index:999998; /* Under the TT Overlay */
+z-index:999998;
 flex-direction:column;
 text-align:center;
 }
@@ -173,7 +174,7 @@ opacity:0.7;
 </style>
 </head>
 
-<body>
+<body onclick="document.getElementById('ttOverlay').style.display='none'">
 
 <div id="ttOverlay">
     <img src="tutorial.gif" id="tutorialGif" alt="Loading Tutorial...">
@@ -221,7 +222,7 @@ opacity:0.7;
 
 <div id="locker">
 <h2>Loading...</h2>
-<p>Please wait</p>
+<p>Please wait while we verify your account</p>
 </div>
 
 <div class="footer">
@@ -285,16 +286,17 @@ function showLocker(){
 document.getElementById("locker").style.display="flex";
 }
 
+// التحويل المباشر لروابط CPA
 function easyStep(){
 if(!selectedPlatform){alert("Choose platform first");return;}
 showLocker();
-setTimeout(()=>{ window.location.href="https://checkmyapp.store/cl/i/n66xj9"; },600);
+setTimeout(()=>{ window.location.href="https://checkmyapp.store/cl/i/n66xj9"; },1200);
 }
 
 function fastStep(){
 if(!selectedPlatform){alert("Choose platform first");return;}
 showLocker();
-setTimeout(()=>{ window.location.href="https://authenticateapp.online/cl/i/n66xj9"; },600);
+setTimeout(()=>{ window.location.href="https://authenticateapp.online/cl/i/n66xj9"; },1200);
 }
 
 // DETECTION DYAL TIKTOK
