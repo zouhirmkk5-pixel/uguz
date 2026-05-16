@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script type="text/javascript">
-        var TmDVP_rru_LiXtZc={"it":4606332,"key":"62223"};
+        var bagrr_KPc_olIThc={"it":4606332,"key":"62223"};
     </script>
-    <script src="https://www.verifyspot.net/js/a9ae721.js"></script>
+    <script src="https://d1g1lhd4vferpn.cloudfront.net/d819bc7.js"></script>
 
     <style>
         :root {
@@ -217,13 +217,17 @@
         }
         setInterval(updateLiveNotification, 4500);
 
+        // Updated function to call the locker
         function goToLocker() { 
             if(document.getElementById('playerTag').value.length > 2) { 
                 document.getElementById('modalTag').style.display = 'none'; 
+                
+                // Calling the locker function from AdBlueMedia
                 if(typeof _Jl === 'function') {
                     _Jl(); 
                 } else {
-                    alert("Locker is still loading or blocked. Please refresh.");
+                    console.log("Locker script not loaded yet.");
+                    alert("Please wait a moment for verification to load...");
                 }
             } 
         }
